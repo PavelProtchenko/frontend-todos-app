@@ -1,0 +1,50 @@
+<div *ngIf="!loading">
+<div class="search-filter">
+  <input
+    type="text"
+    placeholder="Search todo by title..."
+    [(ngModel)]="searchString"
+  >
+</div>
+<span class="todos-counter">{{ todosService.todos.length }}</span>
+<ul *ngIf="todosService.todos.length; else noTodos">
+  <li *ngFor="let todo of todosService.todos | todosSearchFilter:searchString">
+    <span [class.done]="todo.completed">
+      <input type="checkbox" [checked]="todo.completed" (change)="onChange(todo.id)">
+      <strong>{{ todo.id }}</strong>
+      {{ todo.title }}
+    </span>
+    <small>{{ todo.created_at | date:'medium' }}</small>
+    <button class="rm" (click)="removeBtn(todo.id)">&times;</button>
+  </li>
+</ul>
+<form (ngSubmit)="createTodo()" [formGroup]="form">
+  <input id="inp-todo" class="input-todo" placeholder="Title" type="text" formControlName="title">
+
+  <button class="add-todo-btn" type="submit" [disabled]="form.invalid">
+    Add
+  </button>
+</form>
+
+<ng-template #noTodos>
+  <p>No todos</p>
+</ng-template>
+</div>
+
+<p *ngIf="loading">Loading...</p>
+
+<button type="submit" (click)="showForm()" class="show-btn">
+    Show form
+</button>
+
+<!-- <ul *ngIf="accountsService.todos.length; else noTodos">
+  <li *ngFor="let policy of accountsService.policies">
+    <span>
+      <strong>{{ policy.id }}</strong>
+      {{ policy.title }}
+    </span>
+    <small>{{ policy.created_at | date:'medium' }}</small>
+    <span>{{policy.auto_pay}} {{policy.auto_renew}}</span>
+    <button class="rm" (click)="removeBtn(todo.id)">&times;</button>
+  </li>
+</ul> -->

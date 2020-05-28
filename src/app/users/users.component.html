@@ -1,0 +1,27 @@
+<!-- <p class="users-title">users works!</p> -->
+<div class="map">
+  <google-map
+  height="100%"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+  ></google-map>
+</div>
+<!-- Use custom zoom buttons -->
+<button class="btnIn" (click)="zoomIn()">Zoom in</button>
+<button class="btnOut" (click)="zoomOut()">Zoom out</button>
+
+<span class="users-counter">{{ usersService.users.length }}</span>
+<ul *ngIf="usersService.users.length;">
+  <li class="users-content" *ngFor="let user of usersService.users">
+    <span>
+      <strong>{{ user.id }}</strong>
+      Name: {{ user.name }}
+      <strong>Email: {{ user.email }}</strong>
+    </span>
+    <small>Created: {{ user.created_at | date: 'medium' }}</small>
+  </li>
+</ul>
+
+<p *ngIf="loading">Loading...</p>

@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend-todos-app';
+  appTitle = 'Todos app';
+  public isVisible: boolean = false;
+
+  showSidebar() {
+    this.isVisible = !this.isVisible
+    alert(this.isVisible);
+  }
 }
